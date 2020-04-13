@@ -6,8 +6,8 @@ public class GradeBook
    private int scoresSize;
 
    /**
-      Constructs a GradeBook with no scores and a given capacity.
-      @capacity the maximum number of scores in this GradeBook
+      Constructs a gradebook with no scores and a given capacity.
+      @capacity the maximum number of scores in this gradebook
    */
    public GradeBook(int capacity)
    {
@@ -16,9 +16,9 @@ public class GradeBook
    }
 
    /**
-      Adds a score to this GradeBook.
+      Adds a score to this gradebook.
       @param score the score to add
-      @return true if the score was added, false if the GradeBook is full
+      @return true if the score was added, false if the gradebook is full
    */
    public boolean addScore(double score)
    {
@@ -33,7 +33,7 @@ public class GradeBook
    }
 
    /**
-      Computes the sum of the scores in this GradeBook.
+      Computes the sum of the scores in this gradebook.
       @return the sum of the scores
    */
    public double sum()
@@ -47,7 +47,7 @@ public class GradeBook
    }
       
    /**
-      Gets the minimum score in this GradeBook.
+      Gets the minimum score in this gradebook.
       @return the minimum score, or 0 if there are no scores.
    */
    public double minimum()
@@ -65,7 +65,7 @@ public class GradeBook
    }
 
    /**
-      Gets the final score for this GradeBook.
+      Gets the final score for this gradebook.
       @return the sum of the scores, with the lowest score dropped if 
       there are at least two scores, or 0 if there are no scores.
    */
@@ -79,24 +79,26 @@ public class GradeBook
          return sum() - minimum();
    }
    
-   // Task #1 - 1: getScoreSize() method which returns scoreSize
+   // Definition of getScoreSize method which returns scoreSize
    public int getScoreSize()
    {
 	   return scoresSize;
    }
    
-   /* Task #1 - 2: toString() method that returns a string
-   with each score in scores field of the GradeBook
-   separated by a space */
+   /* 
+    * Definition of toString method that returns a string with each 
+    * score in scores field of the Gradebook separated by a space 
+    */
    public String toString()
    {
-	   String scoreList = "";
-	   for(int i = 0; i < scoresSize; i++)
+	   StringBuilder s = new StringBuilder();
+	   for(int i=0; i < scoresSize; i++)
 	   {
-
-	        scoreList += scores[i] + " ";
-	       
-	    }
-	    return scoreList;
-	}
+		   s.append(scores[i]);
+		   s.append(" ");
+	   }
+	   
+	   return s.toString();
+   }
 }
+

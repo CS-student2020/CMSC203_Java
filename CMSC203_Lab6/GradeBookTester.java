@@ -1,97 +1,101 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class GradeBookTester {
+class GradeBookTester {
+
+	private GradeBook g1, g2;
 	
-    private GradeBook obj1;
-	private GradeBook obj2;
-
-	@Before
-	public void setUp() throws Exception {
+	@BeforeEach
+	void setUp() throws Exception {
 		
-		// Create two objects of GradeBook to hold 5 scores
-		obj1 = new GradeBook(5);
-		obj2 = new GradeBook(5);
-
-		// Call addScore method for each of the GradeBook objects at least twice
-		obj1.addScore(95.5);
-		obj1.addScore(100.0);
-		obj1.addScore(20.5);
+		// Create an object of GradeBook to hold 5 scores
+		g1 = new GradeBook(5);
 		
-		obj2.addScore(80.0);
-		obj2.addScore(98.0);
-		obj2.addScore(100.0);
-		obj2.addScore(79.5);
-		obj2.addScore(30.5);
-
+		// Add some random scores to the GradBook object
+		g1.addScore(10);
+		g1.addScore(15);
+		g1.addScore(13.5);
+		
+		// Create an object of GradeBook to hold 5 scores
+		g2 = new GradeBook(5);
+		
+		// Add some random scores to the GradBook object
+		g2.addScore(7);
+		g2.addScore(14.5);
+		g2.addScore(19);
+		g2.addScore(20);
 	}
 
-	@After
-	public void tearDown() throws Exception {
+	@AfterEach
+	void tearDown() throws Exception {
 		
 		// Set two objects of GradeBook to null
-		obj1 = null;
-		obj2 = null;
-	}
-
-	
-
-	@Test
-	public void testAddScore() {
-		
-		assertTrue(obj1.toString().equals("95.5 100.0 20.5 "));
-	    assertTrue(obj2.toString().equals("80.0 98.0 100.0 79.5 30.5 "));
-	   
-	    /*System.out.println("testAddScore");
-	    System.out.println(obj1.getScoreSize());
-	    System.out.println(obj2.getScoreSize());*/
-	    
-	    assertEquals (3, obj1.getScoreSize());
-	    assertEquals (5, obj2.getScoreSize());
-	    
-	    /*System.out.println(obj1.toString());
-		System.out.println(obj2.toString());*/
-	    
-	    
-	    
-	}
-	@Test
-	public void testSum() {
-		/*System.out.println("sum");
-		System.out.println(obj1.sum());
-		System.out.println(obj2.sum());*/
-		
-		
-		assertEquals (216.0, obj1.sum(), 0.0001);
-		assertEquals (388.0, obj2.sum(), 0.0001);
-		
+		g1 = g2 = null;
 	}
 
 	@Test
-	public void testMinimum() {
+	void testAddScore() 
+	{
 		
-		/*System.out.println("minimum");
-		System.out.println(obj1.minimum());
-		System.out.println(obj2.minimum());*/
+		/* 
+		 * Use the toString method to compare the contents of 
+		 * what is in the scores array vs. what is expected to be
+		 * in the scores array assertTrue 
+		 */
+		assertTrue(g1.toString().equals("10.0 15.0 13.5 "));
+		assertTrue(g2.toString().equals("7.0 14.5 19.0 20.0 "));
 		
-		assertEquals (20.5, obj1.minimum() , 0.001);
-		assertEquals (30.5, obj2.minimum() , 0.001);
+		/*
+		 * Compare the scoreSize to the expected number of scores entered,
+		 * using assertEquals
+		 */
+		assertEquals(g1.getScoreSize(), 3);
+		assertEquals(g2.getScoreSize(), 4);
 	}
 
 	@Test
-	public void testFinalScore() {
+	void testSum() {
 		
-		/*System.out.println("finalscore");
-		System.out.println(obj1.finalScore());
-		System.out.println(obj2.finalScore());*/
-		
-		assertEquals (195.5, obj1.finalScore(), 0.001);
-		assertEquals (357.5, obj2.finalScore(), 0.001);
-		
+		// Compare what is returned by sum() to the expected sum of the scores entered
+		assertEquals(g1.sum(), 38.5, 0.0001);
+		assertEquals(g2.sum(), 60.5, 0.0001);
 	}
 
-	
+	@Test
+	void testMinimum() {
+		
+		// Compare what is returned by minimum() to the expected minimum of the scores entered
+		assertEquals(g1.minimum(), 10, 0.001);
+		assertEquals(g2.minimum(), 7, 0.001);
+	}
+
+	@Test
+	void testFinalScore() {
+		
+		/* 
+		 * Compare what is returned by finalScore() to the expected 
+		 * finalScore of the scores entered. The finalScore is the sum of the scores,
+		 * with the lowest score dropped if there are at least two scores,
+		 * or 0 if there are no scores. 
+		 */
+		assertEquals(g1.finalScore(), 28.5, 0.001);
+		assertEquals(g2.finalScore(), 53.5, 0.001);
+	}
+
+	@Test
+	void testGetScoreSize() {
+		assertEquals(g1.getScoreSize(), 3);
+		assertEquals(g2.getScoreSize(), 4);
+	}
+
+	@Test
+	void testToString() {
+		assertTrue(g1.toString().equals("10.0 15.0 13.5 "));
+		assertTrue(g2.toString().equals("7.0 14.5 19.0 20.0 "));
+	}
+
 }
